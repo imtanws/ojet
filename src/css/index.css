@@ -1,0 +1,7 @@
+#div-bottom{
+    position: fixed;
+    bottom: 0px;
+    background: white;
+    z-index: 999;
+    border: 1px solid #ccc;
+}
