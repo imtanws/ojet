@@ -40,21 +40,29 @@ define(['ojs/ojcore', 'knockout', 'jquery',
         };
 
         this.gotoContent = function(event) {
+            // debugger
             if (event.detail.value != null){   
                 var row = data[event.detail.value];
                 self.content(row.content);                    
-                self.slide();
+                self.slide(true);
             }
         };
 
-        this.slide = function() {
-            $("#page1").toggleClass("demo-page1-hide");
-            $("#page2").toggleClass("demo-page2-hide");
+        this.slide = function(val) {
+            // $("#ppp").toggleClass("demo-page1-hide");
+            // $("#pppp").toggleClass("demo-page2-hide");
+            if (val) {
+                $("#page1").hide()
+                $("#page2").show()
+            } else {
+                $("#page2").hide()
+                $("#page1").show()
+            }
         }
 
 
 
-        
+
         var aboutContent = [{id: 'aboutDemo', title: '', label: 'About Demo' },
                           {id: 'privacyPolicy', title: 'Oracle Privacy Policy', label: 'Oracle Privacy Policy' }];
 

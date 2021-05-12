@@ -46,18 +46,15 @@
         <div class="oj-flex oj-sm-flex-direction-column oj-hybrid-applayout-page">
         <!-- ko if: router.stateId() === 'aboutList' || router.stateId() === 'aboutDemo' -->
         <div class="demo-about-top-bg">
-          <div class="demo-circle-logo-container" style="margin:auto;">
+            <div class="demo-circle-logo-container" style="margin:auto;">
             <div class="demo-circle-logo"></div>
-          </div>
+            </div>
 
           <h2 class="demo-profile-name">张春林</h2>
         </div>
         <!-- /ko -->
 
-        <!-- ko if: router.stateId() -->
-       <!--  <div class="oj-sm-flex-1" id="aboutModuleContainer" data-bind="ojModule: moduleConfig">
-        </div> -->
-        <!-- /ko -->
+ 
 
         <div id="listviewContainer" class="demo-container">
             <div id="page1" class="demo-page">
@@ -67,9 +64,9 @@
                     data="[[dataProvider]]" 
                     item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('note_template', true)]]" on-current-item-changed="[[gotoContent]]">
                 </oj-list-view>
-          </div>
+            </div>
       
-<!--           <div id="page2" class="demo-page demo-page2-hide">
+            <div id="page2" class="demo-page demo-page2-hide">
                 <oj-button 
                     id="buttonIcon2" 
                     on-click="[[gotoList]]">
@@ -81,8 +78,8 @@
                 <div class="oj-panel demo-panel">
                     <span data-bind="text: content"></span>
                 </div>
-          </div>
-        </div> -->
+            </div>
+        </div>
         
         <script type="text/html" id="note_template">
             <li data-bind="attr: {id: 'item'+id}" style="line-height: 30px">
