@@ -20,13 +20,13 @@ define(['ojs/ojcore', 'knockout', 'jquery',
     function(oj, ko, $, app) {
     function aboutViewModel() {
         var self = this;
-        var data = [{id: 0, name: 'Potential cat names', date: 'Apr 30', content: 'Mew, Furball, Puss'},
-                {id: 1, name: 'Todo list for work', date: 'Apr 29', content: 'Add one more'},
-                {id: 2, name: 'Chicken recipes', date: 'Apr 15', content: 'Fried, Shake & Bake, Sautee'},
-                {id: 3, name: 'Running routes', date: 'Apr 3', content: 'Bedroom to kitchen and back'},
-                {id: 4, name: 'Groceries', date: 'Apr 1', content: 'Milk, bread, meat, veggie, can, etc.'},
-                {id: 5, name: 'Party guest list', date: 'Mar 29', content: ''},
-                {id: 6, name: 'Weekend projects', date: 'Mar 2', content: 'TBD'}
+        var data = [{id: 0, name: '个人信息', date: '', content: 'Mew, Furball, Puss'},
+                {id: 1, name: '优惠券', date: '', content: 'Add one more'},
+                {id: 2, name: '银行卡', date: '', content: 'Fried, Shake & Bake, Sautee'},
+                {id: 3, name: '预约', date: '', content: 'Bedroom to kitchen and back'},
+                {id: 4, name: '收藏', date: '', content: 'Milk, bread, meat, veggie, can, etc.'},
+                {id: 5, name: '帮助中心', date: '', content: ''},
+                {id: 6, name: '设置', date: '', content: 'TBD'}
         ];
         this.dataProvider = new oj.ArrayDataProvider(data, {
             keys:data.map(function(value) {
