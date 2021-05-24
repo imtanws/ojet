@@ -7,29 +7,10 @@
  The Universal Permissive License (UPL), Version 1.0
  -->
 <div>
-    <div class="oj-applayout-fixed-top" data-bind="css: { 'demo-transparent-top': router.stateId() === 'aboutList' || router.stateId() === 'aboutDemo'}">
-    <header role="banner" class="oj-flex-bar oj-hybrid-applayout-header oj-sm-align-items-center" style="z-index: 1;" data-bind="css: { 'demo-transparent-header oj-hybrid-applayout-header-no-border': router.stateId() === 'aboutList' || router.stateId() === 'aboutDemo'}">
-      <div class="oj-flex-bar-start">
-        <!-- ko if: router.stateId() === 'aboutList' -->
-        <oj-button class='demo-hamburger-button' on-click='[[$root.toggleDrawer]]' display='icons' chroming='half'>
-          <span slot='startIcon' class='oj-fwk-icon oj-fwk-icon-hamburger'></span>
-          Navigation Drawer
-        </oj-button>
-        <!-- /ko -->
+    <div class="oj-applayout-fixed-top" 
+        data-bind="css: { 'demo-transparent-top': router.stateId() === 'aboutList' || router.stateId() === 'aboutDemo'}">
+        <header role="banner" class="oj-flex-bar oj-hybrid-applayout-header oj-sm-align-items-center" style="z-index: 1;" data-bind="css: { 'demo-transparent-header oj-hybrid-applayout-header-no-border': router.stateId() === 'aboutList' || router.stateId() === 'aboutDemo'}">
 
-        <!-- ko if: router.stateId() !== 'aboutList' -->
-        <oj-button class='demo-back-button' on-click='[[goBack]]' display='icons' chroming='half'>
-          <span slot='startIcon' class='oj-hybrid-applayout-header-icon-back oj-fwk-icon'></span>
-          Go Back
-        </oj-button>
-        <!-- /ko -->
-
-      </div>
-      <div class="oj-hybrid-applayout-bar-title" style="min-width:65%;">
-        <!-- ko if: router.stateId() !== 'aboutList' && router.stateId() !== 'aboutDemo' && router.currentState() -->
-        <h1 class="oj-hybrid-applayout-header-title" data-bind="text: router.currentState().label"></h1>
-        <!-- /ko -->
-      </div>
       <!-- ko if: router.stateId() === 'aboutList' || router.stateId() === 'aboutDemo' -->
       <div class="oj-flex-bar-end">
         <oj-button class='demo-social-button' id='profile-action-btn' on-click='[[openPopup]]' display='icons' chroming='half'>
@@ -38,7 +19,7 @@
         </oj-button>   
       </div>
       <!-- /ko -->
-    </header>
+        </header>
     </div>
 
     <div class="oj-applayout-content oj-complete">
@@ -66,7 +47,7 @@
                 </oj-list-view>
             </div>
       
-            <div id="page2" class="demo-page demo-page2-hide">
+            <div id="page2" class="demo-page" style="display: none">
                 <oj-button 
                     id="buttonIcon2" 
                     on-click="[[gotoList]]">
