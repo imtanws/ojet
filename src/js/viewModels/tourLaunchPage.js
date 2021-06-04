@@ -10,7 +10,7 @@
 define(['ojs/ojcore', 'jquery', 'ojs/ojbutton', 'ojs/ojanimation'], function(oj, $) {
 	function tourViewModel() {
 		var self = this;
-
+    // $('#divBottom').css('display', 'none')
     self.handleTransitionCompleted = function(info) { 
       // hide cordova splash screen
       if(navigator.splashscreen) {

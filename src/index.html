@@ -18,6 +18,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
 
+    <link rel="stylesheet" href="http://www.oracle.com/webfolder/technetwork/jet/css/libs/oj/v4.1.0/alta/oj-alta-min.css">
+    <link rel="stylesheet" href="http://www.oracle.com/webfolder/technetwork/jet/css/samples/site/demo-alta-site-min.css">
+
+
     <!-- for Safari on iOS -->
     <meta name="apple-mobile-web-app-title" content="FixItFast">
     <link rel="apple-touch-icon" sizes="212x212" href="img/FIF_launcher2_icon_rect.png">
@@ -36,60 +40,44 @@
   </head>
   <body>
     <div id="page" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
-          <div style="position: fixed;bottom: 0px;background: white;z-index: 999;border: 1px solid #ccc">
+          <div id="divBottom">
             <oj-tab-bar
+              style="width: 100%"
               on-selection-changed='[[drawerChange]]'
               selection='{{router.stateId}}'
-              drill-mode="none" selection="home2" edge="top" class="oj-tabbar-stack-icon-label">
-              <ul>
-                <li id="incidents">
-                  <a href="#">
+              drill-mode="none" selection="incidents"
+              edge="bottom" class="oj-tabbar-stack-icon-label">
+              <ul style="width: 100%;display: flex;overflow: hidden;">
+                <li id="homepage" style="flex: 1">
+                  <a href="#" class="tab-center">
                     <span class="oj-tabbar-item-icon
                           demo-home-icon-24 demo-icon-font-24">
                     </span>
-                    incidents
+                    首页
                   </a>
                 </li>
-                <li id="customers">
-                  <a href="#">
-                    <span class="oj-tabbar-item-icon
-                          demo-education-icon-24 demo-icon-font-24">
-                    </span>
-                    Customers
-                  </a>
-                </li>
-                <li id="profile">
-                  <a href="#">
+                <li id="incidents" style="flex: 1">
+                  <a href="#" class="tab-center">
                     <span class="oj-tabbar-item-icon
                           demo-catalog-icon-24 demo-icon-font-24">
                     </span>
-                    Profile
+                    发现
                   </a>
                 </li>
-                <li id="settings">
-                  <a href="#">
-                    <span class="oj-tabbar-item-icon
-                          demo-palette-icon-24 demo-icon-font-24">
-                    </span>
-                    Settings
-                  </a>
-                </li>
-                <li id="about" >
-                  <a href="#" >
+                <li id="about" style="flex: 1">
+                  <a href="#" class="tab-center">
                     <span class="oj-tabbar-item-icon
                           demo-library-icon-24 demo-icon-font-24">
                     </span>
-                    About
+                    我的
                   </a>
                 </li>
               </ul>
             </oj-tab-bar>
           </div>
-      <!-- nav drawer -->
-
 
       <!-- page -->
-      <div id="pageContent" data-bind="ojModule: moduleConfig">
+      <div id="pageContent" data-bind="ojModule: moduleConfig" style="background-color: #f5f5f9">
       </div>
 
       <!-- bottom drawer: camera action sheet for hybrid app -->

@@ -26,15 +26,24 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'appController',
     }
 
     // Replace with state save logic for rememberUserName
-    self.userName = ko.observable('Harry Carson');
-    self.passWord = ko.observable('password');
-    self.rememberUserName = ko.observable(['remember']);
+    self.userName = ko.observable('');
+    self.userName = 'zcl'
+    self.passWord = ko.observable('123');
 
     // Replace with sign in authentication
     self.signIn = function() {
+      window.sessionStorage.setItem("isLogin", true)
+      window.sessionStorage.setItem("username", self.userName)
       app.pushClient.registerForNotifications();
-      oj.Router.rootInstance.go('incidents/tabdashboard');
+      oj.Router.rootInstance.go('homepage');
     };
+
+    self.hangIn = function() {
+      window.sessionStorage.setItem("isLogin", false)
+      window.sessionStorage.setItem("username", '')
+      app.pushClient.registerForNotifications();
+      oj.Router.rootInstance.go('homepage')
+    }
 
   }
   return signinViewModel;

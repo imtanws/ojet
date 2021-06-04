@@ -1,0 +1,27 @@
+<div class="oj-panel" style="border-bottom: 1px solid #ccc">
+
+    <div id="filmStripDiv" class="demo-filmstrip-item">
+        <oj-film-strip
+            id="filmStrip"
+            data-oj-context
+            max-items-per-page="1"
+            arrow-visibility="hidden"
+        >    
+            <!-- ko foreach: chemicals -->
+            <div>
+                <span data-bind="text: name"></span>
+            </div>
+            <!-- /ko -->
+        </oj-film-strip>
+        <div class="demo-overlaid-paging-control">
+            <oj-paging-control 
+                id="pagingControl" 
+                data="[[pagingModel]]"
+                page-size="0"
+                page-options='{"type": "dots"}'>
+            </oj-paging-control>
+        </div>
+    </div>
+
+  <!-- end filmStripDiv -->
+</div>

@@ -1,0 +1,27 @@
+<div class="upload-wrapper">
+    <div class="upload-block">
+        <oj-file-picker
+            on-select='[[selectListener]]'>
+            <div tabindex='0' slot='trigger'
+              class='oj-filepicker-dropzone'>
+                <p class='oj-filepicker-text'>上传身份证</p>
+            </div>
+        </oj-file-picker>
+    </div>
+    <div class="upload-block">
+        <oj-file-picker on-select='[[selectListener]]'>
+            <div tabindex='0' slot='trigger'
+              class='oj-filepicker-dropzone'>
+                <p class='oj-filepicker-text'>上传身份证</p>
+            </div>
+        </oj-file-picker>
+    </div>
+    <div class="oj-flex" style="justify-content: center;">
+        <oj-button 
+            on-click="[[gotoList]]"
+            class='oj-button-confirm'
+            disabled='[[disableControls]]' chroming='full'>
+        确认
+        </oj-button>
+    </div>
+</div>

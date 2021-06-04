@@ -51,7 +51,7 @@ define(['knockout', 'jquery', 'ojs/ojfilmstrip', 'ojs/ojpagingcontrol'], functio
     ];
 
     self.getItemInitialDisplay = function(index) {
-      return index < 1 ? '' : 'none';
+      return index < 2 ? '' : 'none';
     };
 
   }

@@ -1,0 +1,64 @@
+<div style="position: relative;">
+    <div style="margin-bottom: 20px">
+    <div class="oj-flex-bar">
+        <div class="oj-flex-bar-middle oj-flex">
+            <oj-train 
+                id="train2"
+                class="oj-flex-item oj-train-stretch"
+                style="min-width:100px"
+                selected-step="{{selectedStep2}}"
+                steps="[[stepArray]]">
+            </oj-train>
+        </div>
+    </div>
+
+
+    <div class="mobile-form">
+    <!-- ko if: selectedStep2() == 'stp1'  -->
+        <div class="mobile-form-body" data-bind="ojModule: idModule ">
+            
+        </div>
+    <!-- /ko -->
+
+    <!-- ko if: selectedStep2() == 'stp2' -->
+        <div class="mobile-form-body" data-bind="ojModule: jobModule ">
+            
+        </div>
+    <!-- /ko -->
+
+    <!-- ko if: selectedStep2() == 'stp3' -->
+        <div class="mobile-form-body" data-bind="ojModule: connectModule ">
+            
+        </div>
+    <!-- /ko -->
+
+    <!-- ko if: selectedStep2() == 'stp4' -->
+        <div class="mobile-form-body" data-bind="ojModule: bankCardModule ">
+            
+        </div>
+        <div class="oj-flex" style="justify-content: center;">
+            <oj-button 
+                on-click="[[gotoList]]"
+                class='oj-button-confirm'
+                disabled='[[disableControls]]' chroming='full'>
+            确认
+            </oj-button>
+        </div>
+    <!-- /ko -->
+
+    <!-- ko if: selectedStep2() !== 'stp4' -->
+        <div class="oj-flex" style="justify-content: center;">
+            <oj-button 
+                style="vertical-align:top;"
+                on-click="[[nextStep2]]"
+                disabled="[[selectedStep2() == 'stp4']]">
+                    <span slot='endIcon' class='oj-fwk-icon-next oj-fwk-icon'>
+                    </span>
+                下一步
+            </oj-button>
+        </div>
+    <!-- /ko -->
+
+    </div>
+</div>
+</div>

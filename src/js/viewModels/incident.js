@@ -25,7 +25,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'dataService', 'appController', 'ojs
       var parentRouter = params.valueAccessor().params['ojRouter']['parentRouter'];
 
       self.router = parentRouter.createChildRouter('incident').configure(function(stateId) {
-
+        debugger
         if(stateId) {
 
           var state = new oj.RouterState(stateId, {

@@ -1,0 +1,53 @@
+<div class="mobile-form-block" >
+    <div class="mobile-form-border">
+        <label class="mobile-form-label" for="text-input">电子邮箱</label>
+        <oj-input-text 
+            class="mobile-form-input" 
+            id="inputcontrol2"
+            value="{{info.income}}" 
+            type="text">
+        </oj-input-text>
+    </div>
+    <div class="mobile-form-border">
+        <label class="mobile-form-label" for="text-input">联系人关系</label>
+        <oj-select-one
+            class="mobile-form-input"
+            id="basicSelect" 
+            aria-label="Single Select" 
+            value="{{info.industry}}" style="max-width:20em">
+            <oj-option value="IE">互联网</oj-option>
+            <oj-option value="FF">房地产</oj-option>
+            <oj-option value="CH">金融</oj-option>
+        </oj-select-one>
+    </div>
+    <div class="mobile-form-border">
+        <label class="mobile-form-label" for="text-input">联系人类型</label>
+        <oj-select-one
+            class="mobile-form-input"
+            id="basicSelect" 
+            aria-label="Single Select" 
+            value="{{info.station}}" style="max-width:20em">
+            <oj-option value="FF">开发</oj-option>
+            <oj-option value="CH">设计</oj-option>
+        </oj-select-one>
+    </div>
+    <div class="mobile-form-border">
+        <label class="mobile-form-label" for="text-input">联系人姓名</label>
+        <oj-input-text 
+            class="mobile-form-input" 
+            id="inputcontrol2"
+            value="{{info.company}}" 
+            type="text">
+        </oj-input-text>
+    </div>
+    <div class="mobile-form-border">
+        <label class="mobile-form-label" for="text-input">联系人电话</label>
+        <oj-input-text 
+            class="mobile-form-input" 
+            id="inputcontrol2"
+            value="{{info.tel}}" 
+            type="text">
+        </oj-input-text>
+    </div>
+</div>
+

@@ -1,0 +1,75 @@
+<div class="mobile-form-block" >
+    <div class="mobile-form-border">
+        <label class="mobile-form-label" for="text-input">从事行业</label>
+        <oj-select-one
+            class="mobile-form-input"
+            id="basicSelect" 
+            aria-label="Single Select" 
+            value="{{info.industry}}" style="max-width:20em">
+            <oj-option value="IE">互联网</oj-option>
+            <oj-option value="FF">房地产</oj-option>
+            <oj-option value="CH">金融</oj-option>
+        </oj-select-one>
+    </div>
+    <div class="mobile-form-border">
+        <label class="mobile-form-label" for="text-input">工作岗位</label>
+        <oj-select-one
+            class="mobile-form-input"
+            id="basicSelect" 
+            aria-label="Single Select" 
+            value="{{info.station}}" style="max-width:20em">
+            <oj-option value="FF">开发</oj-option>
+            <oj-option value="CH">设计</oj-option>
+        </oj-select-one>
+    </div>
+    <div class="mobile-form-border">
+        <label class="mobile-form-label" for="text-input">月收入</label>
+        <oj-input-text 
+            class="mobile-form-input" 
+            id="inputcontrol2"
+            value="{{info.income}}" 
+            type="text">
+        </oj-input-text>
+    </div>
+    <div class="mobile-form-border">
+        <label class="mobile-form-label" for="text-input">单位名称</label>
+        <oj-input-text 
+            class="mobile-form-input" 
+            id="inputcontrol2"
+            value="{{info.company}}" 
+            type="text">
+        </oj-input-text>
+    </div>
+    <div class="mobile-form-border">
+        <label class="mobile-form-label" for="text-input">单位固话</label>
+        <oj-input-text 
+            class="mobile-form-input" 
+            id="inputcontrol2"
+            value="{{info.tel}}" 
+            type="text">
+        </oj-input-text>
+    </div>
+    <div class="mobile-form-border">
+        <label class="mobile-form-label" for="text-input">单位地址</label>
+        <oj-select-one
+            class="mobile-form-input"
+            id="basicSelect" 
+            aria-label="Single Select" 
+            value="{{info.address}}" style="max-width:20em">
+            <oj-option value="FF">合肥市</oj-option>
+            <oj-option value="CH">西安市</oj-option>
+        </oj-select-one>
+    </div>
+    <div class="mobile-form-border">
+        <label class="mobile-form-label" for="text-input">工作时长</label>
+        <oj-select-one
+            class="mobile-form-input"
+            id="basicSelect" 
+            aria-label="Single Select" 
+            value="{{info.time}}" style="max-width:20em">
+            <oj-option value="FF">1年</oj-option>
+            <oj-option value="CH">2年</oj-option>
+        </oj-select-one>
+    </div>
+</div>
+

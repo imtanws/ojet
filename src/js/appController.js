@@ -27,17 +27,17 @@ function (oj, ko, $, data, mapping, PushClient, OfflineController, ConnectionDra
   oj.Router.defaults['urlAdapter'] = new oj.Router.urlParamAdapter();
 
   var router = oj.Router.rootInstance;
-
   // Root router configuration
   router.configure({
     'tour': { label: 'Tour', isDefault: true },
+    'homepage': { label: 'homepage' },
     'incidents': { label: 'Incidents' },
+    'form': { label: 'form' },
     'signin': { label: 'Sign In' },
     'customers': { label: 'Customers' },
     'profile': { label: 'Profile' },
     'about': { label: 'About' },
     'incident': { label: 'Incident' },
-    'settings': { label: 'Settings' },
     'createIncident': { label: 'Create an Incident' }
   });
 
@@ -248,13 +248,13 @@ function (oj, ko, $, data, mapping, PushClient, OfflineController, ConnectionDra
       self.closeDrawer();
     };
 
-    // self.toggleDrawer = function () {
-    //   return oj.OffcanvasUtils.toggle({selector: '#navDrawer', modality: 'modal', content: '#pageContent' });
-    // };
+    self.toggleDrawer = function () {
+      return oj.OffcanvasUtils.toggle({selector: '#divBottom', modality: 'modal', content: '#pageContent' });
+    };
 
-    // self.closeDrawer = function () {
-    //   return oj.OffcanvasUtils.close({selector: '#navDrawer', modality: 'modal', content: '#pageContent' });
-    // };
+    self.closeDrawer = function () {
+      return oj.OffcanvasUtils.close({selector: '#divBottom', modality: 'modal', content: '#pageContent' });
+    };
 
     self.bottomDrawer = { selector: '#bottomDrawer', modality: 'modal', content: '#pageContent', displayMode: 'overlay' };
 

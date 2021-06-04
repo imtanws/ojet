@@ -6,7 +6,7 @@
  Copyright (c) 2014, 2017, Oracle and/or its affiliates.
  The Universal Permissive License (UPL), Version 1.0
  -->
-<div class="oj-hybrid-applayout-page">
+<div class="oj-hybrid-applayout-page" style='z-index: 20;position: relative;'>
   <div class="demo-signin-bg oj-flex oj-sm-justify-content-flex-end">
     <div class="oj-flex-item oj-sm-9 demo-signin-column oj-flex oj-sm-flex-direction-column oj-sm-flex-wrap-nowrap">
 
@@ -18,25 +18,48 @@
 
         <div class="oj-flex-item">
           <div class="oj-hybrid-padding-start">
-            <h1 class="demo-signin-appname">Oracle<div style="font-weight: 400; padding-top: 4px;">FixItFast</div></h1>
+            <h1 class="demo-signin-appname"><div style="font-weight: 400; padding-top: 4px;">金融贷</div></h1>
           </div>
 
           <div class="demo-signin-form-container oj-hybrid-padding">
             <div class="demo-signin-form oj-hybrid-padding-vertical">
               <form method="post" action="" name="signInForm">
-                <oj-input-text id='MobilePTUsername' placeholder='User Name' spellcheck='false' autocorrect='off' autocapitalize=off aria-label='User Name' value='{{userName}}' required='true'></oj-input-text>
-                <oj-input-password id='MobilePTPassword' placeholder='Password' aria-label='password' value='{{passWord}}' required='true'></oj-input-password>
+                <oj-input-text 
+                  id='MobilePTUsername' 
+                  placeholder='User Name' 
+                  spellcheck='false' 
+                  autocorrect='off' 
+                  autocapitalize=off 
+                  aria-label='User Name' 
+                  value='{{userName}}' required='true'>
+                </oj-input-text>
+                <oj-input-password 
+                  id='MobilePTPassword'
+                  aria-label='password' 
+                  value='{{passWord}}' 
+                  required='true'>
+                </oj-input-password>
               </form>
 
               <div class="oj-hybrid-padding-top">
-                <oj-button id='signInBtn' class='demo-signin-button' chroming='full'
-                  on-click='[[signIn]]'><span class="demo-signin-button-label"><span class='oj-hybrid-padding-horizontal'>Sign In</span></span></oj-button>
-                <a id="cannotSignInBtn" href="javascript:;" class="forgotLinkM">Can't sign in?</a>
+                <oj-button 
+                  id='signInBtn' 
+                  class='demo-signin-button' 
+                  chroming='full'
+                  on-click='[[signIn]]'>
+                    <span class="demo-signin-button-label">
+                      <span class='oj-hybrid-padding-horizontal'>登陆
+                      </span>
+                    </span>
+                </oj-button>
+                <a id="cannotSignInBtn" href="javascript:;" class="forgotLinkM">还没有账号?</a>
               </div>
 
-              <oj-checkboxset id='rememberUserNameCheckBox' aria-label='Remeber User Name' value='{{rememberUserName}}' class='oj-checkboxset-no-chrome oj-checkboxset-input-start'>
-                <oj-option id='rememberUserName' value='remember'>Remember User Name</oj-option>
-              </oj-checkboxset>
+              <oj-button 
+                id="cannotSignInBtn"
+                on-click='[[hangIn]]'>
+                随便逛逛
+              </oj-button>
             </div>
           </div>
         </div>

@@ -10,24 +10,35 @@
 define(['ojs/ojcore', 'knockout', 'jquery',
         'appController',
         'ojs/ojknockout',
+        'ojs/ojrouter', 'ojs/ojmodule', 'ojs/ojmoduleanimations',
         'promise',
         'ojs/ojlistview', 
         'ojs/ojarraydataprovider', 
+        'ojs/ojrouter',
         'ojs/ojbutton',
+        'ojs/ojdialog',
         'ojs/ojinputtext',
         'ojs/ojlabel',
         'ojs/ojpopup'],
     function(oj, ko, $, app) {
-    function aboutViewModel() {
+    function aboutViewModel(moduleParams) {
         var self = this;
-        var data = [{id: 0, name: '个人信息', date: '', content: 'Mew, Furball, Puss'},
-                {id: 1, name: '优惠券', date: '', content: 'Add one more'},
-                {id: 2, name: '银行卡', date: '', content: 'Fried, Shake & Bake, Sautee'},
-                {id: 3, name: '预约', date: '', content: 'Bedroom to kitchen and back'},
-                {id: 4, name: '收藏', date: '', content: 'Milk, bread, meat, veggie, can, etc.'},
-                {id: 5, name: '帮助中心', date: '', content: ''},
-                {id: 6, name: '设置', date: '', content: 'TBD'}
+
+        self.scrollElem = document.body;
+        var slogin = window.sessionStorage.getItem("isLogin")
+        self.islogin = ko.observable('')
+        self.islogin = slogin == 'true' ? 1 : 2
+        self.username = ko.observable('')
+        self.username = window.sessionStorage.getItem('username')
+        var data = [{id: 1, name: '个人信息', pageId: '#page1', content: 'Mew, Furball, Puss', desc: '1'},
+                {id: 2, name: '身份认证', pageId: '#page2', content: 'Add one more', desc: '1'},
+                {id: 3, name: '还款计划', pageId: '#page3', content: 'Fried, Shake & Bake, Sautee', desc: '1'},
+                {id: 4, name: '预约', pageId: '#page4', content: 'Bedroom to kitchen and back', desc: '1'},
+                {id: 5, name: '收藏', pageId: '#page5', content: 'Milk, bread, meat, veggie, can, etc.', desc: '1'},
+                {id: 6, name: '帮助中心', pageId: '#page6', content: '', desc: '1'},
+                {id: 7, name: '设置', pageId: '#page7', content: 'TBD', desc: '1'}
         ];
+        
         this.dataProvider = new oj.ArrayDataProvider(data, {
             keys:data.map(function(value) {
                 return value.id;
@@ -35,126 +46,101 @@ define(['ojs/ojcore', 'knockout', 'jquery',
         });
         this.content = ko.observable("");
         this.gotoList = function(event, ui) {
+            console.log(event.detail.value)
             document.getElementById("listview").currentItem = null;
             self.slide();
         };
-
-        this.gotoContent = function(event) {
-            // debugger
-            if (event.detail.value != null){   
-                var row = data[event.detail.value];
-                self.content(row.content);                    
-                self.slide(true);
-            }
-        };
-
-        this.slide = function(val) {
-            // $("#ppp").toggleClass("demo-page1-hide");
-            // $("#pppp").toggleClass("demo-page2-hide");
-            if (val) {
-                $("#page1").hide()
-                $("#page2").show()
-            } else {
-                $("#page2").hide()
-                $("#page1").show()
-            }
-        }
-
-
-
-
-        var aboutContent = [{id: 'aboutDemo', title: '', label: 'About Demo' },
-                          {id: 'privacyPolicy', title: 'Oracle Privacy Policy', label: 'Oracle Privacy Policy' }];
+        self.headerText = ko.observable('')
+        self.listId = ko.observable('#page1')
 
         self.handleActivated = function(params) {
+            var parentRouter = params.valueAccessor().params['ojRouter']['parentRouter'];
 
-        var parentRouter = params.valueAccessor().params['ojRouter']['parentRouter'];
-
-        // add aboutList as default state on child router
-        var routerConfigOptions = {
-          'aboutList': { label: 'About', isDefault: true },
-        };
-
-        // add each about list item to the router
-        aboutContent.forEach(function(item) {
-          var id = item.id.toString();
-          routerConfigOptions[id] = { label: item.title };
-        });
-
-        self.router = parentRouter.createChildRouter('about').configure(routerConfigOptions);
-
-        var switcherCallback = function(context) {
-          return app.pendingAnimationType;
-        };
-
-        // switch module based on router state
-        self.moduleConfig = ko.pureComputed(function () {
-          var moduleConfig;
-
-          // pass the list content to the list view
-          if(self.router.stateId() === 'aboutList') {
-            moduleConfig = $.extend(true, {}, self.router.moduleConfig, {
-              'params': { 'list': aboutContent },
-              'animation': oj.ModuleAnimations.switcher(switcherCallback)
-            });
-          } else {
-            // pass the list item content to the content view
-            moduleConfig = $.extend(true, {}, self.router.moduleConfig, {
-              'name': 'aboutContent',
-              'params': { 'contentID': self.router.stateId() },
-              'animation': oj.ModuleAnimations.switcher(switcherCallback)
-            });
-          }
-
-          return moduleConfig;
-        });
-
-        return oj.Router.sync();
-        };
-
-        // dispose about page child router
-        self.dispose = function(info) {
-            self.router.dispose();
-        };
-
-        // handle go back
-        self.goBack = function() {
-        app.pendingAnimationType = 'navParent';
-        window.history.back();
-        };
-
-        // navigate to about content
-        self.optionChange = function(event) {
-        var value = event.detail.value;
-        if(value && value[0] !== null) {
-          app.pendingAnimationType = 'navChild';
-          self.router.go(value[0]);
+            this.gotoContent = function(event) {
+                if (!window.sessionStorage.getItem('isLogin')) {
+                    parentRouter.go('signin')
+                    return;
+                }
+                if (event.detail.value != null){   
+                    var row = data[event.detail.value-1];
+                    self.content(row.content);
+                    self.headerText(row.name)
+                    self.listId(row.pageId)       
+                    self.slide(true, row.pageId);
+                }
+            };
         }
-        };
+
+        this.slide = function(val, id) {
+            if (val) {
+                $("#page0").hide()
+                $(id).show()
+                $("#header").hide()
+            } else {
+                $("#page0").show()
+                $(self.listId()).hide()
+                $("#header").show()
+            }
+        }
+
+        this.formModule = {
+            name: 'about/form',
+            params: {
+                toggle: self.gotoList
+            }
+        }
+
+        this.uploadModule = {
+            name: 'about/upload',
+            params: {
+                toggle: self.gotoList
+            }
+        }
+
+        this.repaymentModule = {
+            name: 'about/repayment',
+            params: {
+                toggle: self.gotoList
+            }
+        }
+
+        self.info = {
+            name: ko.observable(''),
+            pwd: ko.observable('')
+        }
+        self.submit = function() {
+            document.querySelector('#modalDialog1').close();
+            window.sessionStorage.setItem("isLogin", true)
+            window.sessionStorage.setItem("username", self.info.name())
+            setTimeout(function() {
+                app.pushClient.registerForNotifications();
+                oj.Router.rootInstance.go('homepage');
+            }, 1000)
+        }
 
         // open social links popup
         self.openPopup = function() {
-        var popup = document.getElementById('aboutPopup');
-        popup.position = {
-          "my": {
-            "horizontal": "center",
-            "vertical": "top"
-          },
-          "at": {
-            "horizontal": "center",
-            "vertical": "top + 50"
-          },
-          "of": ".oj-hybrid-applayout-content",
-          "offset": {
-            "x": 0,
-            "y": 10
-          }
-        };
+            var popup = document.getElementById('aboutPopup');
+            popup.position = {
+                "my": {
+                    "horizontal": "center",
+                    "vertical": "bottom"
+                },
+                "at": {
+                    "horizontal": "center",
+                    "vertical": "bottom"
+                },
+                "of": "window",
+                "offset": {
+                    "x": 0,
+                    "y": -200
+                }
+            };
         
-        // place initial focus on the popup instead of the first focusable element
-        popup.initialFocus = 'popup';
+            // place initial focus on the popup instead of the first focusable element
+            popup.initialFocus = 'popup';
         
-        return popup.open('#profile-action-btn');
+            return popup.open('#profile-action-btn');
         };
 
 
