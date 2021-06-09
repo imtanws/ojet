@@ -9,17 +9,21 @@
 <div class="oj-hybrid-applayout-page">
     <div id="filmstrip-overlaidpagingcontrol-example" data-bind="ojModule: moduleSettings"></div>
     <div data-bind="ojModule: notice"></div>
-
-    <oj-list-view  
+    <div data-bind="ojModule: pullSettings"></div>
+    <oj-button class='demo-social-button' id='profile-action-btn' data-bind="click: show" display='icons' chroming='half'>
+        显示联系人
+      </oj-button>
+<!--     <oj-list-view  
         id="listview" 
         aria-label="list with context menu"  
         data="[[dataProvider]]" 
         item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('server_template', true)]]" 
         selection-mode="single">
         </oj-list-view>
-    </div>
+    </div> -->
+    
     <div style="width: 100%;height: 60px"></div>
-    <script type="text/html" id="server_template">
+<!--     <script type="text/html" id="server_template">
         <li data-bind="attr: {id: $data['name']}">
             <div class="oj-flex">
                 <div class="oj-flex-item list-img-block">
@@ -38,10 +42,9 @@
                 </div>
             </div>
         </li>
-    </script>
-    <oj-button class='demo-social-button' id='profile-action-btn' data-bind="click: show" display='icons' chroming='half'>
-        显示联系人
-      </oj-button> 
+
+    </script> -->
+
 </div>
 
   

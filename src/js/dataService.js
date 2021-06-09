@@ -265,6 +265,46 @@ define(['jquery', 'appConfig'], function ($, appConfig) {
     });
   }
 
+  function sendUserInfo(info) {
+    return $.ajax({
+      type: 'POST',
+      url: 'http://192.168.31.113:8888/userinfo',
+      contentType: 'application/json; charset=UTF-8',
+      data: JSON.stringify(info)
+    })
+  }
+
+  function getHomepageList(info) {
+    
+    return $.ajax({
+      type: 'GET',
+      url: 'http://localhost:8888/product',
+      contentType: 'application/json; charset=UTF-8',
+      xhrFields: {
+        withCredentials: true  //支持附带详细信息
+      },
+      crossDomain: true
+    })
+  }
+
+  function userLogin(data) {
+    return $.ajax({
+      type: 'POST',
+      url: 'http://192.168.31.113:8888/userlogin',
+      contentType: 'application/json; charset=UTF-8',
+      data: JSON.stringify(data)
+    })
+  }
+
+  function userRegister(data) {
+    return $.ajax({
+      type: 'POST',
+      url: 'http://192.168.31.113:8888/userRegister',
+      contentType: 'application/json; charset=UTF-8',
+      data: JSON.stringify(data)
+    })
+  }
+
   return {
     registerForNotifications: registerForNotifications,
     getCustomers: getCustomers,
@@ -283,7 +323,11 @@ define(['jquery', 'appConfig'], function ($, appConfig) {
     getLocation: getLocation,
     getUserProfile: getUserProfile,
     updateUserProfile: updateUserProfile,
-    setOnlineMode: setOnlineMode
+    setOnlineMode: setOnlineMode,
+    sendUserInfo: sendUserInfo,
+    getHomepageList: getHomepageList,
+    userLogin: userLogin,
+    userRegister: userRegister
   };
 
 });

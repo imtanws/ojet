@@ -22,6 +22,7 @@
           </div>
 
           <div class="demo-signin-form-container oj-hybrid-padding">
+            <!-- ko if: Login() == '1' -->
             <div class="demo-signin-form oj-hybrid-padding-vertical">
               <form method="post" action="" name="signInForm">
                 <oj-input-text 
@@ -52,7 +53,7 @@
                       </span>
                     </span>
                 </oj-button>
-                <a id="cannotSignInBtn" href="javascript:;" class="forgotLinkM">还没有账号?</a>
+                <span id="cannotSignInBtn" data-bind="click: toggle(true)" class="forgotLinkM">还没有账号?</span>
               </div>
 
               <oj-button 
@@ -61,6 +62,50 @@
                 随便逛逛
               </oj-button>
             </div>
+            <!-- /ko -->
+
+
+            <!-- ko if: Login() == '2' -->
+            <div class="demo-signin-form oj-hybrid-padding-vertical">
+              <form method="post" action="" name="signInForm">
+                <oj-input-text 
+                  id='MobilePTUsername' 
+                  placeholder='User Name' 
+                  spellcheck='false' 
+                  autocorrect='off' 
+                  autocapitalize=off 
+                  aria-label='User Name' 
+                  value='{{userName}}' required='true'>
+                </oj-input-text>
+                <oj-input-password 
+                  id='MobilePTPassword'
+                  aria-label='password' 
+                  value='{{passWord}}' 
+                  required='true'>
+                </oj-input-password>
+              </form>
+
+              <div class="oj-hybrid-padding-top">
+                <oj-button 
+                  id='signInBtn' 
+                  class='demo-signin-button' 
+                  chroming='full'
+                  on-click='[[signUp]]'>
+                    <span class="demo-signin-button-label">
+                      <span class='oj-hybrid-padding-horizontal'>注册
+                      </span>
+                    </span>
+                </oj-button>
+                <span id="cannotSignInBtn" data-bind="click: toggle(false)" class="forgotLinkM">已有账号?</span>
+              </div>
+
+              <oj-button 
+                id="cannotSignInBtn"
+                on-click='[[hangIn]]'>
+                随便逛逛
+              </oj-button>
+            </div>
+            <!-- /ko -->
           </div>
         </div>
 

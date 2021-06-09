@@ -46,7 +46,6 @@ define(['ojs/ojcore', 'knockout', 'jquery',
         });
         this.content = ko.observable("");
         this.gotoList = function(event, ui) {
-            console.log(event.detail.value)
             document.getElementById("listview").currentItem = null;
             self.slide();
         };
@@ -57,7 +56,8 @@ define(['ojs/ojcore', 'knockout', 'jquery',
             var parentRouter = params.valueAccessor().params['ojRouter']['parentRouter'];
 
             this.gotoContent = function(event) {
-                if (!window.sessionStorage.getItem('isLogin')) {
+                console.log(window.sessionStorage.getItem('isLogin'))
+                if (window.sessionStorage.getItem('isLogin') == 'false') {
                     parentRouter.go('signin')
                     return;
                 }

@@ -1,0 +1,23 @@
+<div id="listviewWrapper">
+    <oj-list-view id="listview" aria-label="list using collection" style="width:100%;height:500px;overflow-x:hidden" 
+            data="[[dataSource]]" item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('tweet_template')]]" scroll-policy="loadMoreOnScroll"  scroll-policy-options.fetch-size="15">
+    </oj-list-view>
+</div>
+
+<script type="text/html" id="tweet_template">
+    <li data-bind="attr: {id: name + created_at}">
+        <div class="oj-flex" style="flex-wrap: nowrap">
+            <span class="demo-thumbnail oj-flex-item" data-bind="style: { backgroundImage: 'url(\'images/listView/oracle.gif\')' }"></span>
+            <div class="demo-content oj-flex-item">
+                <div>
+                    <strong data-bind="text: name"></strong>
+                    <span class="demo-username" data-bind="text: '@' + screen_name"></span>
+                </div>
+                <div class="demo-tweet">
+                    <span style="word-wrap: break-word" data-bind="text: text"></span> <a data-bind="attr: { href: source }, text: source"></a>
+                </div>        
+                <span class="demo-metadata" data-bind="text: created_at"></span>
+            </div>
+        </div>
+    </li>
+</script>

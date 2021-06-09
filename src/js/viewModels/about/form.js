@@ -1,14 +1,51 @@
 'use strict';
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojtrain',
-'ojs/ojbutton', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojdatetimepicker'],function(oj, ko, $){
+define(['ojs/ojcore', 
+        'knockout', 
+        'jquery',
+        'dataService',
+        'ojs/ojknockout', 
+        'ojs/ojtrain',
+        'ojs/ojbutton', 
+        'ojs/ojinputtext', 
+        'ojs/ojlabel', 
+        'ojs/ojdatetimepicker'],
+    function(oj, ko, $, data){
     function TrainData(params) {
         var self = this;
-
-
-        self.gotoList = params.toggle
+        self.gotoList = function() {
+            [idInfo, jobInfo, connectInfo, bankCardInfo].forEach(function(item) {
+                for(let key in item) {
+                    if (typeof item[key] == 'function') {
+                        item[key] = item[key]()
+                    }
+                }
+            })
+            var info = {
+                idInfo: idInfo,
+                jobInfo: jobInfo,
+                connectInfo: connectInfo,
+                bankCardInfo: bankCardInfo
+            }
+            data.sendUserInfo(info).then(function(res) {
+                console.log(res)
+                params.toggle()
+                self.selectedStep2('stp1')
+                self.clearInfo()
+            })
+        }
+        self.clearInfo = function(info) {
+            [idInfo, jobInfo, connectInfo, bankCardInfo].forEach(function(item) {
+                for(let key in item) {
+                    if (typeof item[key] == 'function') {
+                        item[key] = item[key]('')
+                    } else {
+                        item[key] = ''
+                    }
+                }
+            })
+        }
         this.disableControls = ko.observable(false);
         self.selectedStep2 = ko.observable('stp1');
-        self.selectedLabel2 = ko.observable('Step One');
         self.stepArray = ko.observableArray([
             {label:'身份信息', id:'stp1'},
             {label:'职业信息', id:'stp2'},
@@ -19,7 +56,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojtrain',
             var next = train.getNextSelectableStep();
             if(next != null) {
                 self.selectedStep2(next);
-                self.selectedLabel2(train.getStep(next).label);
             }
         }
         self.previousStep2 = function() {
