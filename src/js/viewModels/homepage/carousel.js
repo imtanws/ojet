@@ -1,27 +1,28 @@
 'use strict';
-define(['ojs/ojcore', 'knockout', 'ojs/ojknockout', 'ojs/ojfilmstrip', 'ojs/ojpagingcontrol'],
-function(oj, ko){     
+define(['ojs/ojcore', 'knockout', 'dataService', 'ojs/ojknockout', 'ojs/ojfilmstrip', 'ojs/ojpagingcontrol'],
+function(oj, ko, data){     
     var ViewModel = function(moduleParams){
         var self = this;
         self.pagingModel = ko.observable(null);
-        self.chemicals = [
-          { name: 'Hydrogen' },
-          { name: 'Helium' },
-          { name: 'Lithium' },
-          { name: 'Beryllium' },
-          { name: 'Boron' },
-          { name: 'Carbon' }
-        ];
-      
-        self.handleBindingsApplied = function(){
-            // debugger
-            var filmStrip = document.getElementById('filmStrip');
+        self.images = ko.observableArray([
+          {id: 1, src: "http://localhost:8888/images/1516086662411.jpg"},
+          {id: 2, src: "http://localhost:8888/images/1516087927856.jpg"},
+          {id: 5, src: "http://localhost:8888/images/1516092060120.jpg"},
+          {id: 4, src: "http://localhost:8888/images/1516092039899.jpg"},
+          ])
+        data.getCarousel().then(function(res) {
+          console.log(res.data)
+        })
+        
+        function render() {
+          var filmStrip = document.getElementById('filmStrip');
             var busyContext = oj.Context.getContext(filmStrip).getBusyContext();
             busyContext.whenReady().then(function (){
-            // Set the Paging Control pagingModel
-                self.pagingModel(filmStrip.getPagingModel());
+              self.pagingModel(filmStrip.getPagingModel());
             });
-            
+        }
+        self.handleBindingsApplied = function(){
+          render()
         };
 
 

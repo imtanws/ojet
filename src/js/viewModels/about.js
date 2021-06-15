@@ -9,6 +9,7 @@
 'use strict';
 define(['ojs/ojcore', 'knockout', 'jquery',
         'appController',
+        'dataService',
         'ojs/ojknockout',
         'ojs/ojrouter', 'ojs/ojmodule', 'ojs/ojmoduleanimations',
         'promise',
@@ -20,23 +21,20 @@ define(['ojs/ojcore', 'knockout', 'jquery',
         'ojs/ojinputtext',
         'ojs/ojlabel',
         'ojs/ojpopup'],
-    function(oj, ko, $, app) {
+    function(oj, ko, $, app, service) {
     function aboutViewModel(moduleParams) {
         var self = this;
 
         self.scrollElem = document.body;
         var slogin = window.sessionStorage.getItem("isLogin")
+        var sinfo = window.sessionStorage.getItem('info')
         self.islogin = ko.observable('')
         self.islogin = slogin == 'true' ? 1 : 2
         self.username = ko.observable('')
         self.username = window.sessionStorage.getItem('username')
-        var data = [{id: 1, name: '个人信息', pageId: '#page1', content: 'Mew, Furball, Puss', desc: '1'},
-                {id: 2, name: '身份认证', pageId: '#page2', content: 'Add one more', desc: '1'},
-                {id: 3, name: '还款计划', pageId: '#page3', content: 'Fried, Shake & Bake, Sautee', desc: '1'},
-                {id: 4, name: '预约', pageId: '#page4', content: 'Bedroom to kitchen and back', desc: '1'},
-                {id: 5, name: '收藏', pageId: '#page5', content: 'Milk, bread, meat, veggie, can, etc.', desc: '1'},
-                {id: 6, name: '帮助中心', pageId: '#page6', content: '', desc: '1'},
-                {id: 7, name: '设置', pageId: '#page7', content: 'TBD', desc: '1'}
+        var data = [{id: 1, name: '开始借款', pageId: '#page1', content: 'Mew, Furball, Puss', desc: '1'},
+                {id: 2, name: '上传身份证', pageId: '#page2', content: 'Add one more', desc: '1'},
+                {id: 3, name: '还款计划', pageId: '#page3', content: 'Fried, Shake & Bake, Sautee', desc: '1'}
         ];
         
         this.dataProvider = new oj.ArrayDataProvider(data, {
@@ -56,19 +54,30 @@ define(['ojs/ojcore', 'knockout', 'jquery',
             var parentRouter = params.valueAccessor().params['ojRouter']['parentRouter'];
 
             this.gotoContent = function(event) {
-                console.log(window.sessionStorage.getItem('isLogin'))
                 if (window.sessionStorage.getItem('isLogin') == 'false') {
                     parentRouter.go('signin')
                     return;
                 }
-                if (event.detail.value != null){   
+                if (event.detail.value != null){
                     var row = data[event.detail.value-1];
+                    if (sinfo == 2 && row.id == 1) {
+                        self.listId('#page4')
+                    } else {
+                        self.listId(row.pageId)
+                    }
                     self.content(row.content);
-                    self.headerText(row.name)
-                    self.listId(row.pageId)       
-                    self.slide(true, row.pageId);
+                    self.headerText(row.name)      
+                    self.slide(true, self.listId());
                 }
             };
+
+            self.signout = function(event) {
+                window.sessionStorage.setItem('isLogin', 'false')
+                window.sessionStorage.setItem('username', '')
+                window.sessionStorage.setItem('info', '1')
+                document.cookie = 'yuntalk= '
+                parentRouter.go('signin')
+            }
         }
 
         this.slide = function(val, id) {
@@ -104,18 +113,39 @@ define(['ojs/ojcore', 'knockout', 'jquery',
             }
         }
 
+        this.creditModule = {
+            name: 'about/credit',
+            params: {
+                toggle: self.gotoList
+            }
+        }
+
         self.info = {
             name: ko.observable(''),
             pwd: ko.observable('')
         }
         self.submit = function() {
             document.querySelector('#modalDialog1').close();
-            window.sessionStorage.setItem("isLogin", true)
-            window.sessionStorage.setItem("username", self.info.name())
-            setTimeout(function() {
-                app.pushClient.registerForNotifications();
-                oj.Router.rootInstance.go('homepage');
-            }, 1000)
+            service.userLogin({
+                username: self.info.name(),
+                pwd: self.info.pwd()
+              }).then(function(res) {
+                console.log(res)
+
+                if (res.code == 1) {
+                  document.cookie = 'yuntalk=' + res.data.token;
+                  window.sessionStorage.setItem('info', res.data.info)
+                  window.sessionStorage.setItem("isLogin", true)
+                  window.sessionStorage.setItem("username", self.info.name())
+                  app.pushClient.registerForNotifications();
+                  setTimeout(function() {
+                    oj.Router.rootInstance.go('homepage');
+                  }, 1000)
+                } else {
+                  alert('登陆失败')
+                }
+              })
+            
         }
 
         // open social links popup

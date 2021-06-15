@@ -48,6 +48,15 @@
                     scroll-policy-options.scroller="[[scrollElem]]"
                     item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('note_template', true)]]" on-current-item-changed="[[gotoContent]]">
                 </oj-list-view>
+                <!-- ko if: islogin == 1 -->
+                  <oj-button 
+                    class='oj-button-primary' 
+                    on-click="[[signout]]"
+                    style="width: 100%"
+                    chroming='full'>
+                     退出登录
+                  </oj-button>
+                <!-- /ko -->
             </div>
       
             <div id="page1" class="demo-page" style="display: none">
@@ -103,6 +112,25 @@
                   <div data-bind="ojModule: repaymentModule"></div>
                 </div>
             </div>
+
+            <div id="page4" class="demo-page" style="display: none">
+                <div class="common-header">
+                  <oj-button
+                    class="go-back"
+                    id="buttonIcon2" 
+                    on-click="[[gotoList]]">
+                    <span slot="startIcon"
+                    style="color: white" 
+                        class="oj-fwk-icon-caret-start oj-fwk-icon"
+                    ></span>
+                  </oj-button>
+                  <span data-bind="text: headerText()"></span>
+                </div>
+                <div style="background-color: #f5f5f9">
+                  <div data-bind="ojModule: creditModule"></div>
+                </div>
+            </div>
+
         </div>
         <div style="width: 100%;height: 60px"></div>
         <script type="text/html" id="note_template">
@@ -119,7 +147,6 @@
                 </div>
             </li>
         </script>
-
         
       </div>
     </div>

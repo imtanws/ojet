@@ -1,5 +1,4 @@
 <div class="oj-panel" style="border-bottom: 1px solid #ccc">
-
     <div id="filmStripDiv" class="demo-filmstrip-item">
         <oj-film-strip
             id="filmStrip"
@@ -7,11 +6,12 @@
             max-items-per-page="1"
             arrow-visibility="hidden"
         >    
-            <!-- ko foreach: chemicals -->
+            <!-- ko foreach: images() -->
             <div>
-                <span data-bind="text: name"></span>
+                <img data-bind="attr: { src: src }" width="100%" height="auto">
             </div>
             <!-- /ko -->
+
         </oj-film-strip>
         <div class="demo-overlaid-paging-control">
             <oj-paging-control 
@@ -22,6 +22,4 @@
             </oj-paging-control>
         </div>
     </div>
-
-  <!-- end filmStripDiv -->
 </div>

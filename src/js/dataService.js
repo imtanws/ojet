@@ -275,11 +275,11 @@ define(['jquery', 'appConfig'], function ($, appConfig) {
   }
 
   function getHomepageList(info) {
-    
     return $.ajax({
       type: 'GET',
-      url: 'http://localhost:8888/product',
+      url: 'http://localhost:8888/product/1',
       contentType: 'application/json; charset=UTF-8',
+      mode:'cors',
       xhrFields: {
         withCredentials: true  //支持附带详细信息
       },
@@ -305,6 +305,31 @@ define(['jquery', 'appConfig'], function ($, appConfig) {
     })
   }
 
+  function getCarousel() {
+    return $.ajax({
+      type: 'GET',
+      url: 'http://localhost:8888/carousel',
+      contentType: 'application/json; charset=UTF-8',
+      mode:'cors',
+      xhrFields: {
+        withCredentials: true  //支持附带详细信息
+      },
+    })
+  }
+
+  function sendLoan(params) {
+    return $.ajax({
+      type: 'POST',
+      url: 'http://192.168.31.113:8888/loan',
+      contentType: 'application/json; charset=UTF-8',
+      data: JSON.stringify(params),
+      mode:'cors',
+      xhrFields: {
+        withCredentials: true  //支持附带详细信息
+      },
+    })
+  }
+
   return {
     registerForNotifications: registerForNotifications,
     getCustomers: getCustomers,
@@ -327,7 +352,9 @@ define(['jquery', 'appConfig'], function ($, appConfig) {
     sendUserInfo: sendUserInfo,
     getHomepageList: getHomepageList,
     userLogin: userLogin,
-    userRegister: userRegister
+    userRegister: userRegister,
+    getCarousel: getCarousel,
+    sendLoan: sendLoan
   };
 
 });

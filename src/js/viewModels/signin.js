@@ -48,7 +48,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'appController', 'dataService',
       }).then(function(res) {
         console.log(res)
         if (res.code == 1) {
-          document.cookie = 'yuntalk=' + res.data;
+          document.cookie = 'yuntalk=' + res.data.token;
+          window.sessionStorage.setItem('info', res.data.info)
           window.sessionStorage.setItem("isLogin", true)
           window.sessionStorage.setItem("username", self.userName())
           app.pushClient.registerForNotifications();

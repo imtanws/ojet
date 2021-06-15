@@ -23,6 +23,7 @@ define(['ojs/ojcore', 'knockout', 'jquery',
       self.parentRouter = params.valueAccessor().params['ojRouter']['parentRouter'];
 
       app.refreshCustomers = function (response) {
+        debugger
         processCustomers(response);
       }
     };
@@ -32,6 +33,7 @@ define(['ojs/ojcore', 'knockout', 'jquery',
       var result = JSON.parse(response).result;
 
       persistenceStoreManager.openStore('customers').then(function (store) {
+        debugger
         store.keys().then(function (keys) {
           result.forEach(function (customer) {
             if(keys.indexOf(customer.id) > -1) {

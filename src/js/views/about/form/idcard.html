@@ -4,7 +4,7 @@
         <oj-input-text 
             class="mobile-form-input" 
             id="inputcontrol2"
-            value="{{info.name}}" 
+            value="{{info.username}}" 
             type="text">
         </oj-input-text>
     </div>
@@ -13,7 +13,7 @@
         <oj-input-text 
             class="mobile-form-input" 
             id="inputcontrol2"
-            value="{{info.credit}}" 
+            value="{{info.idcard}}" 
             type="text">
         </oj-input-text>
     </div>
@@ -28,12 +28,12 @@
     </div>
     <div class="mobile-form-border">
         <label class="mobile-form-label" for="text-input">出生日期</label>
-        <oj-input-text 
+        <oj-input-date 
             class="mobile-form-input" 
             id="inputcontrol2"
             value="{{info.date}}" 
             type="text">
-        </oj-input-text>
+        </oj-input-date>
     </div>
     <div class="mobile-form-border">
         <label class="mobile-form-label" for="text-input">地址</label>
@@ -61,10 +61,10 @@
             class="mobile-form-input"
             id="basicSelect" 
             aria-label="Single Select" 
-            value="{{info.graduate}}" style="max-width:20em">
-            <oj-option value="IE">本科</oj-option>
-            <oj-option value="FF">研究生</oj-option>
-            <oj-option value="CH">博士</oj-option>
+            value="{{info.study}}" style="max-width:20em">
+            <oj-option value="1">本科</oj-option>
+            <oj-option value="2">研究生</oj-option>
+            <oj-option value="3">博士</oj-option>
         </oj-select-one>
     </div>
     <div class="mobile-form-border">
@@ -74,8 +74,8 @@
             id="basicSelect" 
             aria-label="Single Select" 
             value="{{info.marry}}" style="max-width:20em">
-            <oj-option value="FF">已婚</oj-option>
-            <oj-option value="CH">未婚</oj-option>
+            <oj-option value="1">已婚</oj-option>
+            <oj-option value="2">未婚</oj-option>
         </oj-select-one>
     </div>
 </div>

@@ -12,7 +12,7 @@
 'use strict';
 define(['ojs/ojcore',  'knockout', 'jquery', 'dataService', 'appController', 'ojs/ojknockout', 'promise', 
   'ojs/ojlistview', 'ojs/ojarraydataprovider', 'ojs/ojmenu', 
-  'ojs/ojoption',  'ojs/ojswitch','ojs/ojbutton'], function(oj, ko, $, service) {
+  'ojs/ojoption',  'ojs/ojswitch','ojs/ojbutton'], function(oj, ko, $, service, app) {
 
     function settingsViewModel() {
         var self = this;
@@ -29,27 +29,22 @@ define(['ojs/ojcore',  'knockout', 'jquery', 'dataService', 'appController', 'oj
         this.pullSettings = {
           name: 'homepage/pull'
         }
+
+        self.data = ko.observableArray()
+        function processProduct(res) {
+          self.data(res.data)
+        }
+        
         service.getHomepageList().then(function(res) {
           console.log(res)
+          if (res.code === 1) {
+            processProduct(res)
+          }
         })
-        var data = [{name: 'Settings', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8},
-                {name: 'Tools', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8},
-                {name: 'Base', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8},
-                {name: 'Environment', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8},
-                {name: 'Security', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8},
-                {name: 'Tools', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8},
-                {name: 'Base', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8},
-                {name: 'Environment', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8},
-                {name: 'Security', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8},
-                {name: 'Tools', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8},
-                {name: 'Base', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8},
-                {name: 'Environment', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8},
-                {name: 'Security', version: '10.3.6', nodes: 2, cpu: 2, type: 'Java Cloud Service Virtual Image', balancer: 1, memory: 8}
-               ];
-        self.dataProvider = new oj.ArrayDataProvider(data, 
-             {keys: data.map(function(value) {
-                 return value.name;
-             })}); 
+
+        self.dataProvider = ko.computed(function() {
+          return new oj.ArrayDataProvider(self.data()); 
+        })
         self.selectedMenuItem = ko.observable("None selected yet");
         self.launchedFromItem = ko.observable("None launched yet");        
         self.show = function() {

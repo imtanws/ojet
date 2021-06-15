@@ -4,7 +4,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojtrain',
     function TrainData(params) {
         var self = this;
         self.info = params.info;
-
+        params.timer.timer4 = Date.now()
     };
     return TrainData
 });

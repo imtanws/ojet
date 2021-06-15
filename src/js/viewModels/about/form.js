@@ -12,6 +12,13 @@ define(['ojs/ojcore',
     function(oj, ko, $, data){
     function TrainData(params) {
         var self = this;
+        self.timer = {
+            timer1: 0,
+            timer2: 0,
+            timer3: 0,
+            timer4: 0
+        }
+
         self.gotoList = function() {
             [idInfo, jobInfo, connectInfo, bankCardInfo].forEach(function(item) {
                 for(let key in item) {
@@ -24,10 +31,24 @@ define(['ojs/ojcore',
                 idInfo: idInfo,
                 jobInfo: jobInfo,
                 connectInfo: connectInfo,
-                bankCardInfo: bankCardInfo
+                bankCardInfo: bankCardInfo,
+                timer: {
+                    timer1: self.timer.timer2 - self.timer.timer1,
+                    timer2: self.timer.timer3 - self.timer.timer2,
+                    timer3: self.timer.timer4 - self.timer.timer3,
+                    timer4: Date.now() - self.timer.timer4
+                }
+            }
+            var pass = self.notNull();
+            if (!pass) {
+                return
             }
             data.sendUserInfo(info).then(function(res) {
-                console.log(res)
+                if (res.code !== 1) {
+                    alert(res.err)
+                    return
+                }
+                window.sessionStorage.setItem('info', '2')
                 params.toggle()
                 self.selectedStep2('stp1')
                 self.clearInfo()
@@ -44,6 +65,41 @@ define(['ojs/ojcore',
                 }
             })
         }
+        self.notNull = function() {
+            var pass = false
+            switch (self.selectedStep2()) {
+                case 'stp1':
+                    pass = self.judge(idInfo);
+                    break;
+                case 'stp2':
+                    pass = self.judge(jobInfo);
+                    break;
+                case 'stp3':
+                    pass = self.judge(connectInfo);
+                    break;
+                case 'stp4':
+                    pass = self.judge(bankCardInfo);
+                    break; 
+            }
+            return pass
+        }
+        self.judge = function(obj) {
+            for(var key in obj) {
+                if (typeof obj[key] === 'function') {
+                    if (obj[key]() === '') {
+                        console.log(obj[key]())
+                        alert('请再仔细检查下哦', key)
+                        return false
+                    }
+                } else {
+                    if (obj[key] === '') {
+                        alert('请再仔细检查下哦', key)
+                        return false
+                    }
+                }
+            }
+            return true
+        }
         this.disableControls = ko.observable(false);
         self.selectedStep2 = ko.observable('stp1');
         self.stepArray = ko.observableArray([
@@ -54,6 +110,10 @@ define(['ojs/ojcore',
         self.nextStep2 = function() {
             var train = document.getElementById("train2");
             var next = train.getNextSelectableStep();
+            var pass = self.notNull()
+            if (!pass) {
+                return
+            }
             if(next != null) {
                 self.selectedStep2(next);
             }
@@ -67,19 +127,20 @@ define(['ojs/ojcore',
             }
         }
         var idInfo = {
-            name: ko.observable(''),
-            credit: ko.observable(''),
+            username: ko.observable(''),
+            idcard: ko.observable(''),
             sex: ko.observable(''),
-            date: ko.observable(''),
+            date: ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date(2014, 1, 1))),
             address: ko.observable(''),
             phone: ko.observable(''),
-            graduate: ko.observable(''),
+            study: ko.observable(''),
             marry: ko.observable('')
         }
         this.idModule = {
             name: 'about/form/idcard',
             params: {
-                info: idInfo
+                info: idInfo,
+                timer: self.timer
             }
         }
         var jobInfo = {
@@ -87,37 +148,40 @@ define(['ojs/ojcore',
             station: ko.observable(''),
             income: ko.observable(''),
             company: ko.observable(''),
-            tel: ko.observable(''),
-            address: ko.observable(''),
-            time: ko.observable('')
+            cphone: ko.observable(''),
+            caddress: ko.observable(''),
+            ctime: ko.observable('')
         }
         this.jobModule = {
             name: 'about/form/job',
             params: {
-                info: jobInfo
+                info: jobInfo,
+                timer: self.timer
             }
         }
         var connectInfo = {
-            email: ko.observable(''),
-            connection: ko.observable(''),
-            type: ko.observable(''),
-            name: ko.observable(''),
-            tel: ko.observable('')
+            lemail: ko.observable(''),
+            lindustry: ko.observable(''),
+            lstation: ko.observable(''),
+            lname: ko.observable(''),
+            lphone: ko.observable('')
         }
         this.connectModule = {
             name: 'about/form/connection',
             params: {
-                info: connectInfo
+                info: connectInfo,
+                timer: self.timer
             }
         }
         var bankCardInfo = {
-            card: ko.observable(''),
-            cardNumber: ko.observable('')
+            bankname: ko.observable(''),
+            bankid: ko.observable('')
         }
         this.bankCardModule = {
             name: 'about/form/bankCard',
             params: {
-                info: bankCardInfo
+                info: bankCardInfo,
+                timer: self.timer
             }
         }
     };
